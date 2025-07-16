@@ -1,14 +1,26 @@
 name: firstworkflow
 on: push
 jobs:
+  # first-job
   learn-actions:
     runs-on: ubuntu-latest
     steps:
       - name: echo-string
-        run: echo "Hello world"
+        run: echo "Hello world Example"
       - name: Multiple-command
         run: | 
          node -v
-         npm -v
-      - name: echo-second
-        run: echo "This is the second step"
+         npm -vs  
+  # second job       
+  parallel-job:
+    runs-on: macos-latest
+    steps:
+      - name: Get SW version
+        run: sw_vers
+  # 3rd job      
+  dependent-job:
+    runs-on: windows-latest
+    needs: parallel-job
+    steps:
+      - name: echo a string
+        run: Write-Output "windows string"
