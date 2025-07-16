@@ -10,3 +10,5 @@ jobs:
         run: | 
          node -v
          npm -v
+      - name: echo-second
+        run: echo "This is the second step"
