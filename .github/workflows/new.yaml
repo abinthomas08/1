@@ -1,26 +1,23 @@
-name: firstworkflow
-on: push
+# .github/workflows/test.yml
+name: Run Tests
+
+on: [push]
+
 jobs:
-  # first-job
-  learn-actions:
+  build:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: echo-string
-        run: echo "Hello world Example"
-      - name: Multiple-command
-        run: | 
-         node -v
-         npm -vs  
-  # second job       
-  parallel-job:
-    runs-on: macos-latest
-    steps:
-      - name: Get SW version
-        run: sw_vers_sfs
-  # 3rd job      
-  dependent-job:
-    runs-on: windows-latest
-    needs: parallel-job
-    steps:
-      - name: echo a string
-        run: Write-Output "windows string"
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
